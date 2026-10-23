@@ -2,7 +2,6 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Student {
     private String nume;
@@ -10,24 +9,59 @@ public class Student {
     private String grupa;
     private List<Integer> note;
 
-    public Student(String nume, String prenume, String grupa, List<Integer> note) {
+    public Student(String nume, String prenume, String grupa) {
         this.nume = nume;
         this.prenume = prenume;
         this.grupa = grupa;
         this.note = new ArrayList<>();
     }
-    public void notaAleatorie(){
-    Random nota = new Random();
-    for(int i = 0; i<5; i++){
-        note.add(nota.nextInt(7)+4);
-       }
-    }
-    public String toString(){
-        return grupa + " " + nume + " " + prenume + " ";
-    }
-    public static void main(String[] args){
-        List<Student> stundeti = new ArrayList<>();
-        //stundeti.add(new Student("Tristiu","Ileana","21/1")
 
+    public String getNume() {
+        return nume;
+    }
+
+    public String getPrenume() {
+        return prenume;
+    }
+
+    public String getGrupa() {
+        return grupa;
+    }
+
+    public List<Integer> getNote() {
+        return note;
+    }
+
+    public boolean esteIntegralist() {
+        for (int nota : note) {
+            if (nota < 5) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public double medie() {
+        if (note.isEmpty()) return 0;
+        int suma = 0;
+        for (int nota : note) {
+            suma += nota;
+        }
+        return (double) suma / note.size();
+    }
+
+    public int numarRestante() {
+        int nr = 0;
+        for (int nota : note) {
+            if (nota < 5) {
+                nr++;
+            }
+        }
+        return nr;
+    }
+
+    @Override
+    public String toString() {
+        return grupa + " " + String.format("%10s", nume) + " " + prenume + " Note: " + note + " Medie: " + String.format("%.2f", medie()) + " Restante: " + numarRestante();
     }
 }
